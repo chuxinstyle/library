@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.library.dao.UserinfoMapper">
+
+
+
+
+
+<select id="selectbyopenid" resultType="Userinfo" parameterType="String">
+		select * from userinfo where openid=#{openid}
+	</select>
+	<insert id="address" parameterType="com.library.pojo.Userinfo">
+		insert into userinfo
+		(name,address,mobile,openid)
+		value(#{name},#{address},#{mobile},#{openid})
+	</insert>
+	<delete id="deleteaddress" >
+	delete from userinfo where address=#{0} and openid=#{1}
+	</delete>
+<select id ="selectborrowmsg" resultType="Userinfo" parameterType="String" >
+SELECT u.name,u.address,u.mobile,u.openid,b.bookname FROM book b RIGHT OUTER JOIN userinfo u ON b.borrower=u.openid 
+WHERE b.openId=#{openid}
+
+</select>
+	
+</mapper>

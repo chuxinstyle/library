@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.library.dao.collectMapper">
+
+  <select id="selectcollect" resultType="collect" parameterType="String">
+		select * from collect where openid=#{openid}
+	</select> 
+ 	<insert id="addcollect" parameterType="com.library.pojo.collect"> 
+		insert into collect
+		(isbn,openid)
+		value(#{isbn},#{openid})
+	</insert> 
+	<delete id="deletecollect"  parameterType="String">
+	delete from collect where isbn=#{isbn}
+	</delete>
+</mapper>

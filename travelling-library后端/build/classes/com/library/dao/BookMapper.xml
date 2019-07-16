@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.library.dao.BookMapper">
+
+	<select id="selectAll" resultType="Book" parameterType="Book">
+		select * from book
+	</select>
+	<select id="selectBynewbook" resultType="Book" parameterType="int">
+		select * from book where newbook=#{newbook}
+	</select>
+	<select id="selectBybookclass" resultType="Book" parameterType="string">
+		select * from book where bookclass=#{bookclass}
+	</select>
+	<select id="selectByisbn" resultType="Book" parameterType="String">
+		select * from book where isbn=#{isbn}
+	</select>
+	<update id="borrow">
+		update book
+		set borrower=#{0}
+		where isbn=#{1};
+
+	</update>
+	<update id="returnBook" parameterType="String">
+		update book
+		set borrower=NULL
+		where isbn=#{isbn};
+	</update>
+	<insert id="publishbook" parameterType="com.library.pojo.Book">
+		insert into book
+		(bookname,isbn,bookdetail,writer,image,newbook,bookclass,openId)
+		value(#{bookname},#{isbn},#{bookdetail},#{writer},#{image},#{newbook},#{bookclass},#{openId})
+	</insert>
+ <select id="selectByborrower" resultType="Book" parameterType="String">
+    select * from book where borrower=#{borrower}
+ </select>
+ <select id="selectByopenId" resultType="Book" parameterType="String">
+    select * from book where openId=#{openId}
+ </select>
+ <select id="findBookCountbybookclass" resultType="int" parameterType="String">
+    select count(1) from book where bookclass=#{bookclass}
+ </select>
+ 
+  <select id="findBookByPage" resultType="Book" >
+    select * from book where bookclass=#{0} limit #{1},#{2}
+ </select>
+ 
+  <select id="findBookCount" resultType="int" >
+    select count(1) from book 
+ </select>
+ 
+  <select id="findBook" resultType="Book" >
+    select * from book  limit #{0},#{1}
+ </select>
+ <select id="selectcollectbook" resultType="Book" parameterType="String" >
+SELECT b.bookname,b.isbn,b.bookdetail,b.writer,b.image,b.newbook,b.bookclass,b.openId,b.borrower FROM book b RIGHT OUTER JOIN collect c ON b.isbn=c.isbn 
+WHERE c.openid=#{openid}
+</select>
+<delete id="deleteBook"  parameterType="String" >
+	delete from book where openId=#{0} and  isbn=#{1}
+	</delete>
+
+</mapper>
+
+
+ 
+
+
+  
